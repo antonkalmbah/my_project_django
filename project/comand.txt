@@ -1,0 +1,43 @@
+user1 = User.objects.create(username='Mike', first_name='Frank')
+user2 = User.objects.create(username='Sash', first_name='Sv')
+user3 = User.objects.create(username='Kolya', first_name='Red')
+user4 = User.objects.create(username='Vanya', first_name='Vano')
+
+Author.objects.create(authors=user1)
+Author.objects.create(authors=user2)
+Author.objects.create(authors=user3)
+
+# autor1 = Author.objects.create(authors = user1)
+# Author.objects.create(authors=user4).update_rating()
+
+
+autor1 = Author.objects.create(user = user1)
+category1 = Category.objects.create(category_name = 'Category1-IT')
+category2 = Category.objects.create(category_name = 'Category2-Edu')
+category3 = Category.objects.create(category_name = 'Category3-Work')
+post1 = Post.objects.create(author = Author.objects.get(authors=User.objects.get(username='Mike')), post_title = 'Первая статья ', content = 'Тут будет текст нашей первой статьи')
+post2 = Post.objects.create(author = Author.objects.get(authors=User.objects.get(username='Sash')), post_title = 'Вторая статья ', content = 'Тут будет текст нашей второй статьи')
+post3 = Post.objects.create(author = Author.objects.get(authors=User.objects.get(username='Sash')), post_title = 'Третья статья ', content = 'Тут будет текст нашей третей статьи')
+post4 = Post.objects.create(author = Author.objects.get(authors=User.objects.get(username='Sash')), post_title = 'четвертая статья ', content = 'Тут будет текст нашей четветрой статьи')
+post1.post_category.add(category1)
+post1.post_category.add(category2)
+post2.post_category.add(category3)
+post3.post_category.add(category3)
+post4.post_category.add(category3)
+
+comment1 = Comment.objects.create(comment_post = post1, comment_username = user1, content = 'Комментарий1 к первой статье')
+comment2 = Comment.objects.create(comment_post = post1, comment_username = user1, content = 'Комментарий1 к первой статье')
+comment3 = Comment.objects.create(comment_post = post2, comment_username = user2, content = 'Комментарий1 ко второй статье')
+comment4 = Comment.objects.create(comment_post = post3, comment_username = user2, content = 'Комментарий1 к третей статье')
+comment5 = Comment.objects.create(comment_post = post4, comment_username = user1, content = 'Комментарий5 к третей статье')
+
+post1.like()
+post1.like()
+post1.like()
+post1.like()
+post2.like()
+post3.dislike()
+
+comment1.like()
+comment4.like()
+comment3.dislike()
